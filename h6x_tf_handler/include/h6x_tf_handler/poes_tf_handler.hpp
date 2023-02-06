@@ -43,7 +43,7 @@ private:
   std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
-  std::chrono::milliseconds timeout_;
+  std::chrono::nanoseconds timeout_;
   std::string src_frame_id_, dist_frame_id_;
 
 public:
@@ -59,7 +59,7 @@ public:
   bool tfSrc2Dist(const PoseStamped &, PoseStamped &) noexcept;
 
   bool configure();
-  bool activate(const std::chrono::milliseconds = 5s);
+  bool activate(const std::chrono::nanoseconds = 5s);
   bool cleanup();
 
 private:

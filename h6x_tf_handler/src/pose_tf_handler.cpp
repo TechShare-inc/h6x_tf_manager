@@ -64,7 +64,7 @@ bool PoseTfHandler::configure()
   return true;
 }
 
-bool PoseTfHandler::activate(const std::chrono::milliseconds timeout)
+bool PoseTfHandler::activate(const std::chrono::nanoseconds timeout)
 {
   if (this->src_frame_id_.empty()) {
     RCLCPP_ERROR(this->logging_if_->get_logger(), "Src frame empty");
