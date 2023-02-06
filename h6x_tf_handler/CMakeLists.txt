@@ -8,11 +8,20 @@ endif()
 find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
+file(GLOB src_files RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} src/*.cpp)
+set(TARGET tf_handler)
+set(MY_LIB_NAME ${PROJECT_NAME}_${TARGET})
+ament_auto_add_library(${MY_LIB_NAME} SHARED ${src_files})
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   set(ament_cmake_copyright_FOUND TRUE)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
+
+  set(TARGET pose_tf_handler)
+  ament_add_gtest(${TARGET} test/src/test_${TARGET}.cpp)
+  target_link_libraries(${TARGET} ${MY_LIB_NAME})
 endif()
 
 ament_auto_package()

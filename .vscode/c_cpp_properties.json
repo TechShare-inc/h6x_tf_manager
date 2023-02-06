@@ -9,6 +9,7 @@
         "/opt/ros/galactic/include/**",
         "/usr/include/**",
         "${workspaceFolder}/h6x_tf_handler/include/**",
+        "${workspaceFolder}/h6x_tf_handler/test/include/**",
       ],
       "name": "ROS",
       "intelliSenseMode": "clang-x64",

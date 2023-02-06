@@ -20,5 +20,4 @@
   "editor.formatOnSave": true,
   "python.linting.enabled": true,
   "python.linting.flake8Enabled": true,
-  "cmake.sourceDirectory": "${workspaceFolder}/h6x_tf_handler",
 }
