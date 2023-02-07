@@ -16,7 +16,7 @@
 
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_ros/static_transform_broadcaster.h>
-#include <h6x_tf_handler/poes_tf_handler.hpp>
+#include <h6x_tf_handler/pose_tf_handler.hpp>
 
 using namespace h6x_tf_handler;  // NOLINT
 
