@@ -35,4 +35,3 @@ jobs:
           import-token: ${{ secrets.GITHUB_TOKEN }}
           package-name: |
             h6x_tf_handler
-          vcs-repo-file-url: tmp.repos
