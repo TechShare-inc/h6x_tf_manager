@@ -12,59 +12,65 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "h6x_tf_handler/pose_tf_handler.hpp"
+#pragma once
+
+#include <string>
+#include <memory>
+
+#include "h6x_tf_handler/tf_handler_base.hpp"
 
 namespace h6x_tf_handler
 {
-PoseTfHandler::PoseTfHandler(
+template<typename MessageT>
+TfHandlerBase<MessageT>::TfHandlerBase(
   const NodeClockInterface::SharedPtr clock_if,
-  const NodeLoggingInterface::SharedPtr logging_if
-)
-: clock_if_(clock_if),
-  logging_if_(logging_if)
+  const NodeLoggingInterface::SharedPtr logging_if)
+: clock_if_(clock_if), logging_if_(logging_if)
 {
   this->src_frame_id_.clear();
   this->dist_frame_id_.clear();
 }
 
-void PoseTfHandler::setSrcFrameId(const std::string & src_frame_id) noexcept
+template<typename MessageT>
+void TfHandlerBase<MessageT>::setSrcFrameId(const std::string & src_frame_id) noexcept
 {
   this->src_frame_id_ = src_frame_id;
 }
 
-
-void PoseTfHandler::setDistFrameId(const std::string & dist_frame_id) noexcept
+template<typename MessageT>
+void TfHandlerBase<MessageT>::setDistFrameId(const std::string & dist_frame_id) noexcept
 {
   this->dist_frame_id_ = dist_frame_id;
 }
 
-bool PoseTfHandler::tfSrc2Dist(PoseStamped & in) noexcept
+template<typename MessageT>
+bool TfHandlerBase<MessageT>::tfSrc2Dist(MessageT & in) noexcept
 {
   in.header.frame_id = this->src_frame_id_;
   in.header.stamp = this->clock_if_->get_clock()->now();
-  in.pose.position.set__x(0.0).set__y(0.0).set__z(0.0);
-  in.pose.orientation.set__w(1.0).set__x(0.0).set__y(0.0).set__z(0.0);
   return this->doTransform(in, in);
 }
 
-bool PoseTfHandler::tfSrc2Dist(const PoseStamped & in, PoseStamped & out) noexcept
+template<typename MessageT>
+bool TfHandlerBase<MessageT>::tfSrc2Dist(const MessageT & in, MessageT & out) noexcept
 {
   if (in.header.frame_id == this->dist_frame_id_) {
-    // No need to transform
     out = in;
     return true;
   }
   return this->doTransform(in, out);
 }
 
-bool PoseTfHandler::configure()
+template<typename MessageT>
+bool TfHandlerBase<MessageT>::configure()
 {
   this->tf_buffer_ = std::make_shared<tf2_ros::Buffer>(this->clock_if_->get_clock());
   this->tf_listener_ = std::make_shared<tf2_ros::TransformListener>(*this->tf_buffer_);
   return true;
 }
 
-bool PoseTfHandler::activate(const std::chrono::nanoseconds timeout)
+template<typename MessageT>
+bool TfHandlerBase<MessageT>::activate(const std::chrono::nanoseconds timeout)
 {
   if (this->src_frame_id_.empty()) {
     RCLCPP_ERROR(this->logging_if_->get_logger(), "Src frame empty");
@@ -83,8 +89,8 @@ bool PoseTfHandler::activate(const std::chrono::nanoseconds timeout)
 
   rclcpp::Rate r(10);
   const bool can_transform = this->tf_buffer_->canTransform(
-    this->dist_frame_id_, this->src_frame_id_, this->clock_if_->get_clock()->now(),
-    this->timeout_, &tf_error);
+    this->dist_frame_id_, this->src_frame_id_,
+    this->clock_if_->get_clock()->now(), this->timeout_, &tf_error);
   if (!can_transform) {
     RCLCPP_ERROR(
       this->logging_if_->get_logger(), "%s -> %s : %s",
@@ -94,14 +100,16 @@ bool PoseTfHandler::activate(const std::chrono::nanoseconds timeout)
   return true;
 }
 
-bool PoseTfHandler::cleanup()
+template<typename MessageT>
+bool TfHandlerBase<MessageT>::cleanup()
 {
   this->tf_listener_.reset();
   this->tf_buffer_.reset();
   return true;
 }
 
-bool PoseTfHandler::doTransform(const PoseStamped & in, PoseStamped & out)
+template<typename MessageT>
+bool TfHandlerBase<MessageT>::doTransform(const MessageT & in, MessageT & out)
 {
   try {
     out = this->tf_buffer_->transform(in, this->dist_frame_id_, this->timeout_);
