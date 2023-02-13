@@ -14,10 +14,10 @@
 
 #pragma once
 
-#include <geometry_msgs/msg/pose_stamped.hpp>
+#include <geometry_msgs/msg/point_stamped.hpp>
 #include "h6x_tf_handler/tf_handler_base.hpp"
 
 namespace h6x_tf_handler
 {
-using PoseTfHandler = TfHandlerBase<geometry_msgs::msg::PoseStamped>;
+using PointTfHandler = TfHandlerBase<geometry_msgs::msg::PointStamped>;
 }  // namespace h6x_tf_handler
