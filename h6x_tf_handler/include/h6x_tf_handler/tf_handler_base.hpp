@@ -57,7 +57,10 @@ public:
   void setDistFrameId(const std::string &) noexcept;
 
   bool tfSrc2Dist(MessageT &) noexcept;
+  [[deprecated("tfSrc2Dist(in, out) has been deprecated. Use tf2Dist(in, out) instead.")]]
   bool tfSrc2Dist(const MessageT &, MessageT &) noexcept;
+
+  bool tfHeader2Dist(const MessageT &, MessageT &) noexcept;
 
   bool configure();
   bool activate(const std::chrono::nanoseconds = 5s);
