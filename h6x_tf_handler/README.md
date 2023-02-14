@@ -36,7 +36,7 @@ PostStamped in, out;
 in.header.frame_id = "some_other_frame_id";
 in.pose.position.x = 1.0;
 
-handler->tf2Dist(in, out);
+handler->tfHeader2Dist(in, out);
 // out.pose.position.x -> 3.0
 ```
 
