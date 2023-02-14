@@ -89,7 +89,7 @@ TEST_F(TestPoseTfHandler, woSrcFrame)
   this->handler->configure();
   // this->handler->setSrcFrameId(this->src_frame_id);
   this->handler->setDistFrameId(this->dist_frame_id);
-  ASSERT_FALSE(this->handler->activate());
+  ASSERT_TRUE(this->handler->activate());
 }
 
 TEST_F(TestPoseTfHandler, woDistFrame)

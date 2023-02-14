@@ -78,10 +78,11 @@ bool TfHandlerBase<MessageT>::configure()
 template<typename MessageT>
 bool TfHandlerBase<MessageT>::activate(const std::chrono::nanoseconds timeout)
 {
+  // If src frame is empty, then transform-ability is not checked
   if (this->src_frame_id_.empty()) {
-    RCLCPP_ERROR(this->logging_if_->get_logger(), "Src frame empty");
-    return false;
+    return true;
   }
+
   if (this->dist_frame_id_.empty()) {
     RCLCPP_ERROR(this->logging_if_->get_logger(), "Dist frame empty");
     return false;
