@@ -39,3 +39,8 @@ in.pose.position.x = 1.0;
 handler->tf2Dist(in, out);
 // out.pose.position.x -> 3.0
 ```
+
+
+## Supported Types
+- `geometry_msgs/msg/PoseStamped`
+- `geometry_msgs/msg/PointStamped`
