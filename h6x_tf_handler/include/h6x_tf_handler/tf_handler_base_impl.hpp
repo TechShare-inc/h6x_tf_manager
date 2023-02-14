@@ -54,6 +54,12 @@ bool TfHandlerBase<MessageT>::tfSrc2Dist(MessageT & in) noexcept
 template<typename MessageT>
 bool TfHandlerBase<MessageT>::tfSrc2Dist(const MessageT & in, MessageT & out) noexcept
 {
+  return this->tfHeader2Dist(in, out);
+}
+
+template<typename MessageT>
+bool TfHandlerBase<MessageT>::tfHeader2Dist(const MessageT & in, MessageT & out) noexcept
+{
   if (in.header.frame_id == this->dist_frame_id_) {
     out = in;
     return true;

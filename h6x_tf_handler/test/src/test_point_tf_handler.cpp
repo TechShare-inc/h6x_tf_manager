@@ -137,7 +137,7 @@ TEST_F(TestPointTfHandler, testTransform2) {
   geometry_msgs::msg::PointStamped in, out;
   in.header.set__frame_id(this->src_frame_id);
   in.point.set__x(2.0);
-  ASSERT_TRUE(this->handler->tfSrc2Dist(in, out));
+  ASSERT_TRUE(this->handler->tfHeader2Dist(in, out));
   ASSERT_EQ(out.header.frame_id, this->dist_frame_id);
   ASSERT_DOUBLE_EQ(out.point.x, 3.0);
 }
