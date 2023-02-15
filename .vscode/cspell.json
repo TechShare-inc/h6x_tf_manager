@@ -4,6 +4,7 @@
   "words": [
     "inplace",
     "rclcpp",
+    "rosidl",
     "xmlstarlet"
   ]
 }

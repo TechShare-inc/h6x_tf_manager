@@ -46,6 +46,7 @@ void TfHandlerBase<MessageT>::setDistFrameId(const std::string & dist_frame_id) 
 template<typename MessageT>
 bool TfHandlerBase<MessageT>::tfSrc2Dist(MessageT & in) noexcept
 {
+  in = MessageT();
   in.header.frame_id = this->src_frame_id_;
   in.header.stamp = this->clock_if_->get_clock()->now();
   return this->doTransform(in, in);
