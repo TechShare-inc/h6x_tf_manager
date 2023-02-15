@@ -126,6 +126,7 @@ TEST_F(TestPoseTfHandler, testTransform1)
   ASSERT_TRUE(this->handler->tfSrc2Dist(out));
   ASSERT_EQ(out.header.frame_id, this->dist_frame_id);
   ASSERT_DOUBLE_EQ(out.pose.position.x, 1.0);
+  ASSERT_DOUBLE_EQ(out.pose.orientation.w, 1.0);
 }
 
 TEST_F(TestPoseTfHandler, testTransform2) {
@@ -140,4 +141,5 @@ TEST_F(TestPoseTfHandler, testTransform2) {
   ASSERT_TRUE(this->handler->tfHeader2Dist(in, out));
   ASSERT_EQ(out.header.frame_id, this->dist_frame_id);
   ASSERT_DOUBLE_EQ(out.pose.position.x, 3.0);
+  ASSERT_DOUBLE_EQ(in.pose.orientation.w, 1.0);
 }
