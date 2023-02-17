@@ -20,4 +20,7 @@ if(BUILD_TESTING)
   target_include_directories(${TARGET} PRIVATE include)
 endif()
 
+ament_export_dependencies(geometry_msgs)
+ament_export_dependencies(tf2_geometry_msgs)
+ament_export_dependencies(tf2_ros)
 ament_auto_package()
