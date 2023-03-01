@@ -44,7 +44,7 @@ private:
   std::shared_ptr<tf2_ros::Buffer> tf_buffer_;
   std::shared_ptr<tf2_ros::TransformListener> tf_listener_;
 
-  std::chrono::nanoseconds timeout_;
+  std::chrono::nanoseconds timeout_ = 5s;
   std::string src_frame_id_, dist_frame_id_;
 
 public:
