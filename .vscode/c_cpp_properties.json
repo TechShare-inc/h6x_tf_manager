@@ -6,7 +6,7 @@
         "limitSymbolsToIncludedHeaders": false
       },
       "includePath": [
-        "/opt/ros/galactic/include/**",
+        "/opt/ros/humble/include/**",
         "/usr/include/**",
         "${workspaceFolder}/h6x_tf_handler/include/**",
         "${workspaceFolder}/h6x_tf_handler/test/include/**",
