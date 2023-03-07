@@ -2,9 +2,14 @@
   "version": "0.2",
   "language": "en",
   "words": [
+    "colcon",
+    "coveragepy",
+    "distro",
     "inplace",
+    "osrf",
     "rclcpp",
     "rosidl",
+    "vcstool",
     "xmlstarlet"
   ]
 }
