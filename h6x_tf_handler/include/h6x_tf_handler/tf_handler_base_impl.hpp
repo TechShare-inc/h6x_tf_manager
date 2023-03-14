@@ -79,6 +79,8 @@ bool TfHandlerBase<MessageT>::configure()
 template<typename MessageT>
 bool TfHandlerBase<MessageT>::activate(const std::chrono::nanoseconds timeout)
 {
+  this->timeout_ = timeout;
+
   // If src frame is empty, then transform-ability is not checked
   if (this->src_frame_id_.empty()) {
     return true;
@@ -89,7 +91,6 @@ bool TfHandlerBase<MessageT>::activate(const std::chrono::nanoseconds timeout)
     return false;
   }
 
-  this->timeout_ = timeout;
   std::string tf_error;
   RCLCPP_INFO(
     this->logging_if_->get_logger(), "Checking transform %s -> %s",
